@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "strapi-plugin-email-designer": "^2.2.1",
+    "strapi-plugin-strapi-algolia": "^1.7.1"
+  }
+}

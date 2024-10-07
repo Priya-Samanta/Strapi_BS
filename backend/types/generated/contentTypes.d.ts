@@ -362,6 +362,116 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiBrainSparkBrainSpark extends Schema.CollectionType {
+  collectionName: 'brain_sparks';
+  info: {
+    singularName: 'brain-spark';
+    pluralName: 'brain-sparks';
+    displayName: 'BrainSpark';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+        maxLength: 20;
+      }>;
+    Description: Attribute.Text;
+    Image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Slug: Attribute.UID &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+        maxLength: 110;
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::brain-spark.brain-spark',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::brain-spark.brain-spark',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLogInLogIn extends Schema.CollectionType {
+  collectionName: 'log_ins';
+  info: {
+    singularName: 'log-in';
+    pluralName: 'log-ins';
+    displayName: 'LogIn';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    Password: Attribute.Password & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::log-in.log-in',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::log-in.log-in',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRegisterRegister extends Schema.CollectionType {
+  collectionName: 'registers';
+  info: {
+    singularName: 'register';
+    pluralName: 'registers';
+    displayName: 'Register';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Username: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    Email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    Password: Attribute.Password & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::register.register',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::register.register',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -590,6 +700,101 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginStrapiSupergptConvo extends Schema.CollectionType {
+  collectionName: 'convos';
+  info: {
+    singularName: 'convo';
+    pluralName: 'convos';
+    displayName: 'Convo';
+  };
+  options: {
+    draftAndPublish: false;
+    timestamps: true;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    content: Attribute.Text;
+    name: Attribute.String;
+    userId: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::strapi-supergpt.convo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::strapi-supergpt.convo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginApiVideoUploaderApiVideoAsset
+  extends Schema.CollectionType {
+  collectionName: 'api_video_assets';
+  info: {
+    name: 'api-video-asset';
+    singularName: 'api-video-asset';
+    pluralName: 'api-video-assets';
+    displayName: 'api.video Asset';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.String & Attribute.Required;
+    _public: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<true>;
+    videoId: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    hls: Attribute.String & Attribute.Required;
+    iframe: Attribute.String & Attribute.Required;
+    mp4: Attribute.String & Attribute.Required;
+    player: Attribute.String & Attribute.Required;
+    thumbnail: Attribute.String & Attribute.Required;
+    tags: Attribute.JSON;
+    metadata: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::api-video-uploader.api-video-asset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::api-video-uploader.api-video-asset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginI18NLocale extends Schema.CollectionType {
   collectionName: 'i18n_locale';
   info: {
@@ -788,109 +993,48 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiBrainSparkBrainSpark extends Schema.CollectionType {
-  collectionName: 'brain_sparks';
+export interface PluginEmailDesignerEmailTemplate
+  extends Schema.CollectionType {
+  collectionName: 'email_templates';
   info: {
-    singularName: 'brain-spark';
-    pluralName: 'brain-sparks';
-    displayName: 'BrainSpark';
-    description: '';
+    singularName: 'email-template';
+    pluralName: 'email-templates';
+    displayName: 'Email-template';
+    name: 'email-template';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
+    timestamps: true;
+    increments: true;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
   };
   attributes: {
-    Title: Attribute.String &
-      Attribute.SetMinMaxLength<{
-        minLength: 5;
-        maxLength: 20;
-      }>;
-    Description: Attribute.Text;
-    Image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Slug: Attribute.UID &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 3;
-        maxLength: 110;
-      }>;
+    templateReferenceId: Attribute.Integer & Attribute.Unique;
+    design: Attribute.JSON;
+    name: Attribute.String;
+    subject: Attribute.String;
+    bodyHtml: Attribute.Text;
+    bodyText: Attribute.Text;
+    enabled: Attribute.Boolean & Attribute.DefaultTo<true>;
+    tags: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::brain-spark.brain-spark',
+      'plugin::email-designer.email-template',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::brain-spark.brain-spark',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiLogInLogIn extends Schema.CollectionType {
-  collectionName: 'log_ins';
-  info: {
-    singularName: 'log-in';
-    pluralName: 'log-ins';
-    displayName: 'LogIn';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Email: Attribute.Email & Attribute.Required & Attribute.Unique;
-    Password: Attribute.Password & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::log-in.log-in',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::log-in.log-in',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiRegisterRegister extends Schema.CollectionType {
-  collectionName: 'registers';
-  info: {
-    singularName: 'register';
-    pluralName: 'registers';
-    displayName: 'Register';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Username: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        maxLength: 50;
-      }>;
-    Email: Attribute.Email & Attribute.Required & Attribute.Unique;
-    Password: Attribute.Password & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::register.register',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::register.register',
+      'plugin::email-designer.email-template',
       'oneToOne',
       'admin::user'
     > &
@@ -908,17 +1052,20 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::brain-spark.brain-spark': ApiBrainSparkBrainSpark;
+      'api::log-in.log-in': ApiLogInLogIn;
+      'api::register.register': ApiRegisterRegister;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::strapi-supergpt.convo': PluginStrapiSupergptConvo;
+      'plugin::api-video-uploader.api-video-asset': PluginApiVideoUploaderApiVideoAsset;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::brain-spark.brain-spark': ApiBrainSparkBrainSpark;
-      'api::log-in.log-in': ApiLogInLogIn;
-      'api::register.register': ApiRegisterRegister;
+      'plugin::email-designer.email-template': PluginEmailDesignerEmailTemplate;
     }
   }
 }
