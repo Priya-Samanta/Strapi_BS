@@ -362,6 +362,116 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiBrainSparkBrainSpark extends Schema.CollectionType {
+  collectionName: 'brain_sparks';
+  info: {
+    singularName: 'brain-spark';
+    pluralName: 'brain-sparks';
+    displayName: 'BrainSpark';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+        maxLength: 20;
+      }>;
+    Description: Attribute.Text;
+    Image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Slug: Attribute.UID &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+        maxLength: 110;
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::brain-spark.brain-spark',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::brain-spark.brain-spark',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLogInLogIn extends Schema.CollectionType {
+  collectionName: 'log_ins';
+  info: {
+    singularName: 'log-in';
+    pluralName: 'log-ins';
+    displayName: 'LogIn';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    Password: Attribute.Password & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::log-in.log-in',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::log-in.log-in',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRegisterRegister extends Schema.CollectionType {
+  collectionName: 'registers';
+  info: {
+    singularName: 'register';
+    pluralName: 'registers';
+    displayName: 'Register';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Username: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    Email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    Password: Attribute.Password & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::register.register',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::register.register',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -932,116 +1042,6 @@ export interface PluginEmailDesignerEmailTemplate
   };
 }
 
-export interface ApiBrainSparkBrainSpark extends Schema.CollectionType {
-  collectionName: 'brain_sparks';
-  info: {
-    singularName: 'brain-spark';
-    pluralName: 'brain-sparks';
-    displayName: 'BrainSpark';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Title: Attribute.String &
-      Attribute.SetMinMaxLength<{
-        minLength: 5;
-        maxLength: 20;
-      }>;
-    Description: Attribute.Text;
-    Image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Slug: Attribute.UID &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 3;
-        maxLength: 110;
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::brain-spark.brain-spark',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::brain-spark.brain-spark',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiLogInLogIn extends Schema.CollectionType {
-  collectionName: 'log_ins';
-  info: {
-    singularName: 'log-in';
-    pluralName: 'log-ins';
-    displayName: 'LogIn';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Email: Attribute.Email & Attribute.Required & Attribute.Unique;
-    Password: Attribute.Password & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::log-in.log-in',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::log-in.log-in',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiRegisterRegister extends Schema.CollectionType {
-  collectionName: 'registers';
-  info: {
-    singularName: 'register';
-    pluralName: 'registers';
-    displayName: 'Register';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Username: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        maxLength: 50;
-      }>;
-    Email: Attribute.Email & Attribute.Required & Attribute.Unique;
-    Password: Attribute.Password & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::register.register',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::register.register',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1052,6 +1052,9 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::brain-spark.brain-spark': ApiBrainSparkBrainSpark;
+      'api::log-in.log-in': ApiLogInLogIn;
+      'api::register.register': ApiRegisterRegister;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -1063,9 +1066,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::email-designer.email-template': PluginEmailDesignerEmailTemplate;
-      'api::brain-spark.brain-spark': ApiBrainSparkBrainSpark;
-      'api::log-in.log-in': ApiLogInLogIn;
-      'api::register.register': ApiRegisterRegister;
     }
   }
 }
