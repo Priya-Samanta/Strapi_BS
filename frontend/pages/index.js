@@ -40,7 +40,7 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-  let a = await fetch("http://localhost:1337/api/brain-sparks?populate=*");
+  let a = await fetch(process.env.NEXT_PUBLIC_API_URL_PROD || 'http://localhost:1337/api/brain-sparks?populate=*');
   let game = await a.json();
   console.log(game)
   return {
